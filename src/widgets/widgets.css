@@ -1,0 +1,48 @@
+html.widget,html.widget body,html.widget #root{background:transparent!important;overflow:hidden}
+.w{width:100vw;height:100vh;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;user-select:none;-webkit-user-select:none;position:relative}
+.w button{border:0;background:transparent;color:inherit;cursor:pointer;padding:4px 8px;border-radius:8px;font:inherit;transition:background .14s,transform .14s}
+.w button:hover{background:rgba(127,127,127,.22)}.w button:active{transform:scale(.94)}.w button:disabled{opacity:.5;cursor:default}
+.wbar{display:flex;align-items:center;gap:2px;padding:8px 8px 2px}.wname{font-weight:600;font-size:13px;padding:0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55%}
+.grow{flex:1;min-height:18px}.wempty{margin:auto;padding:20px;text-align:center;opacity:.7;font-size:13px}.werr{margin:4px 10px;padding:6px 8px;border-radius:8px;background:rgba(229,72,77,.25);font-size:12px}
+.w-ring .wbar button,.w-month .wbar button{opacity:.75}
+
+/* 1 — Glass ring */
+.w-ring{background:radial-gradient(120% 90% at 20% 0%,rgba(80,110,255,.35),transparent 55%),radial-gradient(100% 80% at 100% 100%,rgba(255,90,170,.28),transparent 60%),rgba(16,18,28,.88);color:#f3f4f8;border:1px solid rgba(255,255,255,.14);font-family:"Inter","Cantarell",system-ui,sans-serif}
+.ringbox{display:flex;justify-content:center;margin-top:6px}.rv{font-size:42px;font-weight:700;fill:#fff;letter-spacing:-.03em}.rs{font-size:12px;fill:rgba(255,255,255,.62)}
+.rstreak{text-align:center;font-weight:600;margin-top:2px}.rstreak small{opacity:.6;font-weight:400}
+.wactions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:12px}
+.w-ring .wactions button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:7px 14px;border-radius:999px;font-weight:600;backdrop-filter:blur(6px)}.w-ring .wactions button:hover{background:rgba(255,255,255,.24)}.w-ring .ghost{background:transparent!important}
+
+/* 2 — Neon terminal */
+.w-month{background:rgba(5,6,10,.94);color:#bff9ff;border:1px solid #17e8ff;box-shadow:0 0 0 1px rgba(23,232,255,.25) inset,0 0 18px rgba(23,232,255,.35);font-family:"JetBrains Mono","Fira Code","DejaVu Sans Mono",ui-monospace,monospace;border-radius:10px}
+.w-month .wname{color:#ff4fd8;text-shadow:0 0 8px rgba(255,79,216,.7)}
+.mnav{display:flex;justify-content:space-between;align-items:center;padding:4px 12px;color:#17e8ff;letter-spacing:.12em;font-weight:700;text-shadow:0 0 8px rgba(23,232,255,.6)}
+.mgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;padding:6px 14px}.mwd{text-align:center;font-size:11px;opacity:.6;padding:2px 0}
+.w .mc{height:38px;padding:0;border:1px solid rgba(23,232,255,.25);border-radius:3px;background:rgba(23,232,255,.05);color:#d6fbff;font-weight:700}
+.w .mc.fill{border-color:transparent}.w .mc.glow{box-shadow:0 0 12px var(--g)}.w .mc.zero{border:1px dashed #8fdce6}
+.w .mc.today{outline:2px solid #ff4fd8;outline-offset:1px}.w .mc.sel{box-shadow:0 0 0 2px #17e8ff}
+.mfoot{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;margin-top:auto;border-top:1px dashed rgba(23,232,255,.35);font-size:12px}
+.mfoot button{color:#ff4fd8!important;font-weight:700}
+
+/* 3 — Mono paper strip */
+.w-strip{background:#f4f1ea;color:#161616;border:1px solid #cfc9bb;border-radius:14px;font-family:"IBM Plex Mono","DejaVu Sans Mono",ui-monospace,monospace}
+.sstats{display:flex;align-items:center;gap:14px;padding:6px 14px 8px;font-size:12px}.sstats b{font-size:18px}.sstats button{border:1px solid #161616!important;border-radius:4px!important;font-size:11px}
+.sgrid{display:grid;grid-template-rows:repeat(7,22px);grid-auto-flow:column;grid-auto-columns:22px;gap:3px;padding:2px 14px 14px;justify-content:center}
+.sc{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;background:#e6e1d6;border-radius:3px;color:#161616}.sc.zero{border:1px dashed #161616}.sc.today{outline:2px solid #161616;outline-offset:1px}.sc.fut{opacity:.4}
+
+/* 4 — Paper sheet */
+.w-sheet{background:linear-gradient(#fff6b8,#ffee94);color:#3a2f12;border-radius:6px 6px 22px 6px;box-shadow:inset 0 -14px 24px rgba(160,120,0,.12);font-family:"Caveat","Kalam","Comic Neue","Bradley Hand","Comic Sans MS",cursive;font-size:17px}
+.w-sheet .wname{font-size:18px;font-weight:700;max-width:78%}.w-sheet .wbar button{opacity:.6}
+.slist{list-style:none;margin:6px 0;padding:0 14px;overflow:auto;flex:1}
+.slist li{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1.5px dashed rgba(90,70,0,.3)}.slist li.done .sinfo b{text-decoration:line-through;text-decoration-thickness:2px}
+.slist i{width:12px;height:12px;border-radius:50%;flex:none}.sinfo{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.1}.sinfo small{font-size:13px;opacity:.7}
+.sbar{display:block;height:5px;border-radius:3px;background:rgba(90,70,0,.15);margin-top:4px;overflow:hidden}.sbar span{display:block;height:100%;border-radius:3px;transition:width .4s}
+.w-sheet .slist button{border:1.5px solid #3a2f12!important;border-radius:10px!important;font-weight:700;min-width:44px;font-size:15px}
+.sinput{padding:6px 14px 10px}.sinput input{width:100%;border:0;border-bottom:2px solid #3a2f12;background:transparent;font:inherit;color:inherit;padding:4px 2px;outline:none}.sinput input::placeholder{color:rgba(58,47,18,.45)}
+.smsg{padding:0 14px 10px;font-size:13px;opacity:.8}
+
+/* Quick add window */
+.qwrap{width:100vw;height:100vh;display:flex;align-items:flex-start;padding:10px}
+.qbox{width:100%;background:rgba(18,19,24,.96);color:#f2f2f3;border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:14px 16px;box-shadow:0 12px 40px rgba(0,0,0,.45);font-family:"Inter",system-ui,sans-serif}
+.qbox input{width:100%;font-size:20px;background:transparent;border:0;outline:none;color:inherit;padding:2px 0}
+.qprev{margin-top:8px;font-size:13px;color:#8fe3b0;min-height:18px}.qprev.err{color:#ff8a8f}

@@ -1,0 +1,39 @@
+name: Bug report
+description: Something does not work as expected
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what did you see instead?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Heatmap version
+      placeholder: "0.2.0"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS and desktop
+      placeholder: "Zorin OS 18, GNOME on X11"
+    validations:
+      required: true
+  - type: dropdown
+    id: pkg
+    attributes:
+      label: Package
+      options:
+        - ".deb"
+        - "AppImage"
+        - "Built from source"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Terminal output
+      description: "Run heatmap-app from a terminal and paste what it prints. Do not include personal data."
+      render: shell
