@@ -1,0 +1,28 @@
+[package]
+name = "heatmap-app"
+version = "0.2.0"
+edition = "2021"
+rust-version = "1.77"
+description = "Local-first activity tracker with calendar heatmaps"
+
+[lib]
+name = "heatmap_app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+base64 = "0.22"
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock"] }
+heatmap-core = { path = "../core" }
+
+# Tray, global shortcut and single-instance do not exist on Android/iOS.
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-global-shortcut = "2"
+tauri-plugin-single-instance = "2"

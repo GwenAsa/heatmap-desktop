@@ -1,0 +1,64 @@
+name: Android APK
+# Builds a debug-signed APK (installable on any phone that allows "unknown apps") on GitHub's runners.
+# Run it from Actions → "Android APK" → Run workflow, or push a v* tag.
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    name: Build APK
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Android SDK platform and NDK
+        run: |
+          sdkmanager --install "platforms;android-34" "build-tools;34.0.0" "ndk;26.3.11579264"
+          echo "NDK_HOME=$ANDROID_HOME/ndk/26.3.11579264" >> "$GITHUB_ENV"
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
+      - uses: Swatinem/rust-cache@v2
+
+      - run: npm ci
+      - name: Generate the Android project
+        run: npx tauri android init --ci
+      - name: Build the APK (64-bit ARM phones)
+        run: npx tauri android build --debug --apk --target aarch64 --ci
+
+      - name: Collect
+        run: |
+          mkdir out
+          apk=$(find src-tauri/gen/android/app/build/outputs -name '*.apk' | head -n1)
+          test -n "$apk" || { echo "No APK produced"; exit 1; }
+          cp "$apk" out/Heatmap-android-debug.apk
+          cd out && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: heatmap-android-apk
+          path: out/*
+
+      - name: Attach to the release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: out/*
