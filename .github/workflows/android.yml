@@ -1,6 +1,6 @@
 name: Android APK
-# Builds a debug-signed APK (installable on any phone that allows "unknown apps") on GitHub's runners.
-# Run it from Actions → "Android APK" → Run workflow, or push a v* tag.
+# Builds a debug-signed APK on GitHub Actions.
+# Run from Actions → "Android APK" → Run workflow, or push a v* tag.
 on:
   workflow_dispatch:
   push:
@@ -26,27 +26,33 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - uses: android-actions/setup-android@v3
+      - uses: android-actions/setup-android@v4
 
       - name: Android SDK platform and NDK
         run: |
-          sdkmanager --install "platforms;android-34" "build-tools;34.0.0" "ndk;26.3.11579264"
+          sdkmanager --install \
+            "platforms;android-34" \
+            "build-tools;34.0.0" \
+            "ndk;26.3.11579264"
           echo "NDK_HOME=$ANDROID_HOME/ndk/26.3.11579264" >> "$GITHUB_ENV"
 
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
+
       - uses: Swatinem/rust-cache@v2
 
       - run: npm ci
+
       - name: Generate the Android project
         run: npx tauri android init --ci
+
       - name: Build the APK (64-bit ARM phones)
         run: npx tauri android build --debug --apk --target aarch64 --ci
 
       - name: Collect
         run: |
-          mkdir out
+          mkdir -p out
           apk=$(find src-tauri/gen/android/app/build/outputs -name '*.apk' | head -n1)
           test -n "$apk" || { echo "No APK produced"; exit 1; }
           cp "$apk" out/Heatmap-android-debug.apk
